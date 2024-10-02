@@ -1,5 +1,5 @@
 
-Solución óptima encontrada:
+Solucion optima encontrada:
 x1 = 3
 x2 = 12
-Valor óptimo de Z: 33
+Valor optimo de Z: 33

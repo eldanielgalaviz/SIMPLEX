@@ -21,7 +21,7 @@ public:
 
     // Función para ingresar la función objetivo
     void ingresarFuncionObjetivo() {
-        cout << "Ingrese los coeficientes de la funcion objetivo (max Z):\n";
+        cout << "Ingrese los coeficientes de la funcion objetivo (min Z):\n";
         for (int i = 0; i < num_variables; i++) {
             cin >> tableau[0][i];
             tableau[0][i] *= -1;  // Convertir a forma estándar (minimización)
@@ -31,12 +31,12 @@ public:
     // Función para ingresar las restricciones
     void ingresarRestricciones() {
         for (int i = 1; i <= num_restrictions; i++) {
-            cout << "Ingrese los coeficientes de la restriccion " << i << " (incluya el lado derecho de la desigualdad):\n";
+            cout << "Ingrese los coeficientes de la restriccion " << i << " (NO incluya el lado derecho de la desigualdad):\n";
             for (int j = 0; j < num_variables; j++) {
                 cin >> tableau[i][j];
             }
             char tipo_restriccion;
-            cout << "Ingrese el tipo de restriccion (1: <=, 2: >=, 3: =): ";
+            cout << "Ingrese el tipo de restriccion (1: <=, 2: >=, 3: =): \n";
             cin >> tipo_restriccion;
 
             if (tipo_restriccion == '1') {
@@ -52,6 +52,7 @@ public:
                 tableau[tableau.size() - 1][num_variables + num_restrictions] = tableau[i][num_variables + num_restrictions]; // lado derecho
                 num_restrictions++; // Incrementar el número de restricciones
             }
+            cout << "Lado derecho de la desigualdad: \n";
             cin >> tableau[i][num_variables + num_restrictions];  // Lado derecho
         }
     }

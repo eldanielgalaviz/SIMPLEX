@@ -1,0 +1,5 @@
+
+Solucion optima encontrada:
+x1 = 3
+x2 = 3
+Valor optimo de Z: 6

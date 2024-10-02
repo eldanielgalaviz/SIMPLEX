@@ -12,7 +12,7 @@ private:
     int num_variables;
     int num_restricciones;
 
-public:
+public: //abrimos el archvo generado por la api
     Simplex(string filename) {
         ifstream file(filename);
         if (!file.is_open()) {
@@ -20,23 +20,23 @@ public:
             exit(1);
         }
 
-        // Leer número de variables y restricciones
+        // extraemos del archivo lss variables y restricciones
         file >> num_variables >> num_restricciones;
         tableau.resize(num_restricciones + 1, vector<double>(num_variables + num_restricciones + 1));
 
-        // Leer la función objetivo
+        // extraemos la función objeto
         for (int i = 0; i < num_variables; i++) {
             file >> tableau[0][i];
             tableau[0][i] *= -1;
         }
 
-        // Leer las restricciones
+        // leemos las restricciones
         for (int i = 1; i <= num_restricciones; i++) {
             for (int j = 0; j < num_variables; j++) {
                 file >> tableau[i][j];
             }
-            file >> tableau[i][num_variables + num_restricciones]; // Lado derecho
-            tableau[i][num_variables + i - 1] = 1;  // Variable de holgura
+            file >> tableau[i][num_variables + num_restricciones]; // lado derecho despues del igual
+            tableau[i][num_variables + i - 1] = 1;  // variable de holgura
         }
 
         file.close();
@@ -103,7 +103,7 @@ public:
     }
 
     void obtenerSolucion() {
-        cout << "\nSolución óptima encontrada:\n";
+        cout << "\nSolucion optima encontrada:\n";
         for (int i = 0; i < num_variables; i++) {
             bool es_variable_basica = false;
             double valor_variable = 0;
@@ -116,7 +116,7 @@ public:
             }
             cout << "x" << i + 1 << " = " << (es_variable_basica ? valor_variable : 0) << endl;
         }
-        cout << "Valor óptimo de Z: " << tableau[0][num_variables + num_restricciones] << endl;
+        cout << "Valor optimo de Z: " << tableau[0][num_variables + num_restricciones] << endl;
     }
 
     void resolverSimplex() {
@@ -124,7 +124,7 @@ public:
             int pivot_col = columnaPivote();
             int pivot_row = filaPivote(pivot_col);
             if (pivot_row == -1) {
-                cout << "No hay solución óptima (problema no acotado)." << endl;
+                cout << "No hay solucion optima (problema no acotado)." << endl;
                 return;
             }
             pivotear(pivot_row, pivot_col);
